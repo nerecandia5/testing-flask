@@ -15,10 +15,9 @@ def test_register(client, app):
 
     # test that the user was inserted into the database
     with app.app_context():
-        assert (
-            get_db().execute("SELECT * FROM user WHERE username = 'a'").fetchone()
-            is not None
-        )
+        usuario = get_db().execute("SELECT * FROM user WHERE username = 'a'").fetchone()
+        assert (usuario is not None)
+        assert (usuario["password"] == generate_password_hash("b"))
 
 
 @pytest.mark.parametrize(
