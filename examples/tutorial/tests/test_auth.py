@@ -1,6 +1,8 @@
 import pytest
 from flask import g
 from flask import session
+from werkzeug.security import check_password_hash
+
 
 from flaskr.db import get_db
 
@@ -10,7 +12,7 @@ def test_register(client, app):
     assert client.get("/auth/register").status_code == 200
 
     # test that successful registration redirects to the login page
-    response = client.post("/auth/register", data={"username": "a", "password": "a"})
+    response = client.post("/auth/register", data={"username": "a", "password": "b"})
     assert response.headers["Location"] == "/auth/login"
 
     # test that the user was inserted into the database
