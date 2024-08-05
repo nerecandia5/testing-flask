@@ -17,7 +17,7 @@ def test_register(client, app):
     with app.app_context():
         usuario = get_db().execute("SELECT * FROM user WHERE username = 'a'").fetchone()
         assert (usuario is not None)
-        assert (usuario["password"] == generate_password_hash("b"))
+        assert (check_password_hash(usuario["password"],"b"))
 
 
 @pytest.mark.parametrize(
